@@ -73,19 +73,28 @@ printStatus () {
 }
 
 usage () {
+    echo "Usage: $0 [OPTION]"
+    echo 
     echo 'University of Technology - Network login'
+    echo
+    echo 'Options:'
+    echo -e "  login\t\t Login into the system"
+    echo -e "  logout\t Logout from the system"
+    echo -e "  status\t Show status of login"
+    echo
+    echo 'Support: Otto Šabart (www.seberm.com / seberm@gmail.com)'
 }
 
 
-if [ "$1" == '--login' ]; then
+if [ "$1" == 'login' ]; then
     login
 fi
 
-if [ "$1" == '--logout' ]; then
+if [ "$1" == 'logout' ]; then
     out
 fi
 
-if [ "$1" == '--status' ]; then
+if [ "$1" == 'status' ]; then
     printStatus
 fi
 
