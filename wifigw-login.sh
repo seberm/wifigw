@@ -74,7 +74,7 @@ printStatus () {
 
 usage () {
     echo "Usage: $0 [OPTION]"
-    echo 
+    echo
     echo 'University of Technology - Network login'
     echo
     echo 'Options:'
