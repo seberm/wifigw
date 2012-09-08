@@ -1,0 +1,3 @@
+repos/archlinux/{pkg,src}/*
+repos/archlinux/src/wifigw-login-*.tar.gz
+
