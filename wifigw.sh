@@ -23,13 +23,14 @@
 
 
 LOGIN_SCRIPT='https://wifigw.cis.vutbr.cz/login.php'
+CURL_PARAMS='--sslv3 --silent'
 
 login () {
     echo 'University of Technology - Network login'
     read -p 'VUT Login: ' LOGIN
     read -p 'VUT Pin: ' -s PASS; echo
 
-    curl --ssl --data "password=${PASS}&user=${LOGIN}&auth=any" --silent $LOGIN_SCRIPT |
+    curl $CURL_PARAMS --data "password=${PASS}&user=${LOGIN}&auth=any" $LOGIN_SCRIPT |
                 iconv --from-code='iso-8859-2' --to-code='utf8' |
                 egrep '<b>přihlášen:</b>' &> /dev/null
 
@@ -43,7 +44,7 @@ login () {
 }
 
 out () {
-    curl --ssl --data "logout=1" --silent $LOGIN_SCRIPT |
+    curl $CURL_PARAMS --data "logout=1" $LOGIN_SCRIPT |
                 iconv --from-code='iso-8859-2' --to-code='utf8' |
                 egrep 'odhlášeno' &> /dev/null
 
@@ -57,7 +58,7 @@ out () {
 }
 
 printStatus () {
-    curl --ssl --silent $LOGIN_SCRIPT |
+    curl $CURL_PARAMS $LOGIN_SCRIPT |
                 iconv --from-code='iso-8859-2' --to-code='utf8' |
                 egrep '<b>přihlášen:</b>' &> /dev/null
 
