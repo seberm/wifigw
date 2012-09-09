@@ -1,0 +1,29 @@
+From 5214a3a3bec52029dd77f10304d73fe975be3d9e Mon Sep 17 00:00:00 2001
+From: Otto Sabart <seberm@gmail.com>
+Date: Sun, 9 Sep 2012 13:50:38 +0200
+Subject: [PATCH] Created patch for maemo devices (fixed curl parameters due
+ to bug in curl build)
+
+---
+ wifigw.sh |    5 ++++-
+ 1 file changed, 4 insertions(+), 1 deletion(-)
+
+diff --git a/wifigw.sh b/wifigw.sh
+index 1f200dd..f7e8f8d 100755
+--- a/wifigw.sh
++++ b/wifigw.sh
+@@ -23,7 +23,10 @@
+ 
+ 
+ LOGIN_SCRIPT='https://wifigw.cis.vutbr.cz/login.php'
+-CURL_PARAMS='--sslv3 --silent'
++
++# '--capath' parameter is there due to <https://bugs.maemo.org/show_bug.cgi?id=9884> bug
++CURL_PARAMS='--sslv3 --silent --capath /etc/certs/common-ca'
++
+ 
+ login () {
+     echo 'University of Technology - Network login'
+-- 
+1.7.10.3
+
