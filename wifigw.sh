@@ -3,7 +3,7 @@
 # WifiGW Login Script - Script for automatization of login into school wifi
 #                       network (VUT Brno - University of Technology
 #
-# https://github.com/seberm/wifigw-login
+# https://github.com/seberm/wifigw
 #
 # Copyright (C) 2012 Seberm (Otto Sabart <seberm@gmail.com), www.seberm.com
 #

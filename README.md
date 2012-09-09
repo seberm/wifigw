@@ -1,8 +1,9 @@
-wifigw-login
+wifigw
 ============
 VUT Brno - University of Technology - Script for automatization of login into school wifi network
 
-[url] https://github.com/seberm/wifigw-login
+[url] https://github.com/seberm/wifigw
+
 [author] Otto Šabart (Seberm) <seberm@gmail.com>
 
 
