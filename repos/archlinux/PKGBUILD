@@ -1,7 +1,7 @@
 # Maintainer: Sabart Otto - Seberm <seberm[at]gmail[dot].com
 
 pkgname=wifigw
-pkgver=20120908
+pkgver=20120909
 pkgrel=1
 pkgdesc="Login to VUT wifi network"
 url="https://github.com/seberm/wifigw"
