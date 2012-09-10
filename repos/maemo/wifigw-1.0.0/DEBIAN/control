@@ -1,0 +1,16 @@
+Package: wifigw
+Version: 1.0.0
+Section: web
+Priority: optional
+Architecture: all
+Maintainer: Otto Sabart <seberm@gmail.com>
+Essential: no
+Depends: curl
+Pre-Depends: bash
+Installed-Size: 1024
+Provides: wifigw
+Homepage: <https://github.com/seberm/wifigw>
+Description: Login to VUT wifi network
+Vcs-Git: https://github.com/seberm/wifigw.git
+XSBC-Bugtracker: mailto:seberm@gmail.com
+XSBC-Maemo-Display-Name: WifiGW VUT

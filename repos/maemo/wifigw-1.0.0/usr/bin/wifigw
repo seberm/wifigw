@@ -1,0 +1,107 @@
+#!/bin/bash
+#
+# WifiGW Login Script - Script for automatization of login into school wifi
+#                       network (VUT Brno - University of Technology
+#
+# https://github.com/seberm/wifigw
+#
+# Copyright (C) 2012 Seberm (Otto Sabart <seberm@gmail.com), www.seberm.com
+#
+# This program is free software; you can redistribute it and/or
+# modify it under the terms of the GNU General Public License
+# (version 3) as published by the Free Software Foundation.
+#
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program; if not, write to the Free Software
+# Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
+
+
+LOGIN_SCRIPT='https://wifigw.cis.vutbr.cz/login.php'
+
+# '--capath' parameter is there due to <https://bugs.maemo.org/show_bug.cgi?id=9884> bug
+CURL_PARAMS='--sslv3 --silent --capath /etc/certs/common-ca'
+
+
+login () {
+    echo 'University of Technology - Network login'
+    read -p 'VUT Login: ' LOGIN
+    read -p 'VUT Pin: ' -s PASS; echo
+
+    curl $CURL_PARAMS --data "password=${PASS}&user=${LOGIN}&auth=any" $LOGIN_SCRIPT |
+                iconv --from-code='iso-8859-2' --to-code='utf8' |
+                egrep '<b>přihlášen:</b>' &> /dev/null
+
+    if [ "$?" -eq 0 ]; then
+        echo 'Authenticated'
+        exit 0
+    else
+        echo 'Authentication failed'
+        exit 2
+    fi
+}
+
+out () {
+    curl $CURL_PARAMS --data "logout=1" $LOGIN_SCRIPT |
+                iconv --from-code='iso-8859-2' --to-code='utf8' |
+                egrep 'odhlášeno' &> /dev/null
+
+    if [ "$?" -eq 0 ]; then
+        echo 'Logouted'
+        exit 0
+    else
+        echo 'Logout failed'
+        exit 2
+    fi
+}
+
+printStatus () {
+    curl $CURL_PARAMS $LOGIN_SCRIPT |
+                iconv --from-code='iso-8859-2' --to-code='utf8' |
+                egrep '<b>přihlášen:</b>' &> /dev/null
+
+    if [ "$?" -eq 0 ]; then
+        echo 'Logged in system'
+        exit 0
+    else
+        echo 'Not logged in'
+        exit 2
+    fi
+    echo
+
+}
+
+usage () {
+    echo "Usage: $0 [OPTION]"
+    echo
+    echo 'University of Technology - Network login'
+    echo
+    echo 'Options:'
+    echo -e "  login\t\t Login into the system"
+    echo -e "  logout\t Logout from the system"
+    echo -e "  status\t Show status of login"
+    echo
+    echo 'Support: Otto Šabart (www.seberm.com / seberm@gmail.com)'
+}
+
+
+if [ "$1" == 'login' ]; then
+    login
+fi
+
+if [ "$1" == 'logout' ]; then
+    out
+fi
+
+if [ "$1" == 'status' ]; then
+    printStatus
+fi
+
+if [ "$1" == '-h' -o "$1" == '--help' ]; then
+    usage
+fi
