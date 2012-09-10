@@ -1,1 +1,4 @@
+#!/bin/bash
+#
 # Steps necessary to do after installation
+exit 0

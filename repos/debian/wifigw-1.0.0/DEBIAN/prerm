@@ -1,1 +1,4 @@
+#!/bin/bash
+#
 # Instructions on what should be done to remove the program
+exit 0
