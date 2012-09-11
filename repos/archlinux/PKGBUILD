@@ -16,6 +16,8 @@ makedepends=('git')
 _gitname="$pkgname"
 _gitroot="git://github.com/seberm/${pkgname}.git"
 
+# Save some of bandwidth - we want only recent history
+_gitopts='--depth 1'
 
 build() {
   cd $srcdir
@@ -25,7 +27,7 @@ build() {
     cd "$_gitname" && git pull origin
     msg "The local files of ${_gitname} were updated."
   else
-    git clone "$_gitroot" "$_gitname"
+    git clone "$_gitopts" "$_gitroot" "$_gitname"
   fi
   
   msg "GIT checkout done or server timeout"
