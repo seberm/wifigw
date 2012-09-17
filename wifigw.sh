@@ -89,16 +89,25 @@ usage () {
 
 if [ "$1" == 'login' ]; then
     login
+else
+    usage
+    exit 2
 fi
 
 if [ "$1" == 'logout' ]; then
     out
+else
+    usage
+    exit 2
 fi
 
 if [ "$1" == 'status' ]; then
     printStatus
+else
+    usage
+    exit 2
 fi
 
-if [ "$1" == '-h' -o "$1" == '--help' ]; then
+if [ "$1" == '-h' -o "$1" == '--help' -o "$#" -eq 0 ]; then
     usage
 fi
