@@ -83,7 +83,7 @@ usage () {
     echo -e "  logout\t Logout from the system"
     echo -e "  status\t Show status of login"
     echo
-    echo 'Support: Otto Šabart (www.seberm.com / seberm@gmail.com)'
+    echo 'Support: Otto Šabart (www.seberm.com / seberm@seberm.com)'
 }
 
 
