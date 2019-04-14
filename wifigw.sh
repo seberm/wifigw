@@ -27,12 +27,12 @@ CURL_PARAMS='--sslv3 --silent'
 
 login () {
     echo 'University of Technology - Network login'
-    read -p 'VUT Login: ' LOGIN
-    read -p 'VUT Pin: ' -s PASS; echo
+    read -r -p 'VUT Login: ' LOGIN
+    read -r -p 'VUT Pin: ' -s PASS; echo
 
-    curl $CURL_PARAMS --data "password=${PASS}&user=${LOGIN}&auth=any" $LOGIN_SCRIPT |
+    curl $CURL_PARAMS --data "password=${PASS}&user=${LOGIN}&auth=any" "$LOGIN_SCRIPT" |
                 iconv --from-code='iso-8859-2' --to-code='utf8' |
-                egrep '<b>přihlášen:</b>' &> /dev/null
+                grep -E '<b>přihlášen:</b>' &> /dev/null
 
     if [ "$?" -eq 0 ]; then
         echo 'Authenticated'
@@ -46,7 +46,7 @@ login () {
 out () {
     curl $CURL_PARAMS --data "logout=1" $LOGIN_SCRIPT |
                 iconv --from-code='iso-8859-2' --to-code='utf8' |
-                egrep 'odhlášeno' &> /dev/null
+                grep -E 'odhlášeno' &> /dev/null
 
     if [ "$?" -eq 0 ]; then
         echo 'Logouted'
@@ -60,7 +60,7 @@ out () {
 printStatus () {
     curl $CURL_PARAMS $LOGIN_SCRIPT |
                 iconv --from-code='iso-8859-2' --to-code='utf8' |
-                egrep '<b>přihlášen:</b>' &> /dev/null
+                grep -E '<b>přihlášen:</b>' &> /dev/null
 
     if [ "$?" -eq 0 ]; then
         echo 'Logged in system'
@@ -102,6 +102,6 @@ else
     exit 2
 fi
 
-if [ "$1" == '-h' -o "$1" == '--help' -o "$#" -eq 0 ]; then
+if [ "$1" == '-h' || "$1" == '--help' || "$#" -eq 0 ]; then
     usage
 fi
